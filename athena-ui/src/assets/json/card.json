@@ -1,0 +1,51 @@
+{
+    "header": {
+        "dataSource": "Testing",
+        "numberOfRecords": 1,
+        "tenantId": "Expanxion",
+        "errorFlag": false
+    },
+    "data": {
+        "card": [
+            {
+                "projectName": "Benifits",
+                "imageURL": "/assets/Images/AWS.png",
+                "data" : {
+                  "developement": 10,
+                  "production": 5,
+                  "performance_testing": 12,
+                  "testing": 3,
+                  "otherServers": 12,
+                  "uat": 1
+                }
+            },
+            {
+                "projectName": "Benifits",
+                "imageURL": "/assets/Images/AWS.png",
+                "data" : {
+                  "developement": 10,
+                  "production": 5,
+                  "performance_testing": 12,
+                  "testing": 3,
+                  "otherServers": 12,
+                  "uat": 1
+                }
+            },
+            {
+                "projectName": "Athena",
+                "imageURL": "/assets/Images/AWS.png",
+                "data" : {
+                  "developement": 10,
+                  "production": 5,
+                  "performance_testing": 12,
+                  "testing": 3,
+                  "otherServers": 12,
+                  "uat": 1
+                }
+            }
+        ]
+    }
+}
+
+
+

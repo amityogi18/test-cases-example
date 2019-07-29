@@ -1,0 +1,76 @@
+//CSS Variables
+$colorBlue: #00A9EE;
+$colorblack:#0A1C2B;
+$colorDarkBlue:#205988;
+$amber:#FFBF00;
+$red: #D9434E;
+$green: #1DBC60;
+$grey: #D6D7D8;
+$white: #ffffff;
+
+//Style-guides for ACtion-buttons
+.action-btns {
+  line-height: 31px;
+  font-family: "Roboto";
+  min-width: 100px;
+}
+
+// Style-guides for Grid-btns
+%grid-btn {
+  max-width: 100px;
+  min-width: 80px;
+  width: 85px;
+  line-height: 29px;
+  color: $white;
+  padding: 0 8px;
+  font-size: 0.9rem;
+}
+.btn-provision {
+  @extend %grid-btn;
+  background-color: $green;
+}
+.btn-redo {
+    @extend %grid-btn;
+    background-color: $colorBlue;
+}
+
+// Dashboard CARD GRAPH common Style
+  .grid-wrapper {
+    padding: 1.5rem;
+    box-shadow: 0 3px 3px #aba6a6;
+    background: #ffffff;
+  } 
+  .padd0 {
+    padding: 0;
+  }
+  .amber { color: $amber;}
+
+  .red { color: $red;}
+
+  .green { color: $green;}
+
+
+
+
+
+//Responsive Design Breakpoints 
+$break-small: 320px;
+$break-medium: 768;
+$break-large: 1024;
+
+
+// Small devices (landscape phones, 320px and up)
+@mixin phone {
+  @media (min-width: #{$break-small}) and (max-width: #{$break-medium - 1px} )
+   { @content; }
+}
+// Medium devices (tablets, 768px and up)
+@mixin tablet {
+  @media (min-width: #{$break-medium}) and (max-width: #{$break-large - 1px}) 
+  { @content; }
+}
+// Extra large devices (large desktops, 1024px and up)
+@mixin desktop {
+  @media (min-width: #{$break-large}) 
+  { @content; }
+}

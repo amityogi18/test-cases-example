@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="21.655" viewBox="0 0 32 21.655">
+  <g id="cloud" transform="translate(0 -10)">
+    <path id="Path_409" data-name="Path 409" d="M26.346,19.276A8.363,8.363,0,0,0,18.112,11a8.648,8.648,0,0,0-7.066,3.794,4.137,4.137,0,0,0-6.426,3.447c0,.079.007.156.012.235-.005.094-.012.189-.012.282A6.624,6.624,0,0,0,1,24.528a6.145,6.145,0,0,0,6.127,6.127H19.8c.071,0,.141-.008.211-.011s.14.011.212.011H25.3a5.721,5.721,0,0,0,5.7-5.7A5.8,5.8,0,0,0,26.346,19.276Z" transform="translate(0 0)" fill="#7fabda" stroke="#7383bf" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+    <path id="Path_410" data-name="Path 410" d="M47.588,26.92a9.98,9.98,0,0,0-2.588,0" transform="translate(-21.241 -7.644)" fill="#7fabda" stroke="#7383bf" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+    <path id="Path_411" data-name="Path 411" d="M8,21.138a4.138,4.138,0,1,1,8.276,0" transform="translate(-3.379 -2.897)" fill="#7fabda" stroke="#7383bf" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+  </g>
+</svg>

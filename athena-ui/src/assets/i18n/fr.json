@@ -1,0 +1,142 @@
+﻿{
+  "PUBLIC": {
+    "Login": {
+      "pageTitle": "Xpanxion Connexion",
+      "title": "Bienvenue à Xpanxion",
+      "emailAddressPlaceHolder": "Adresse e-mail",
+      "passwordPlaceHolder": "Mot de passe",
+      "loginButton": "S'identifier"
+    }
+  },
+  "SHARED": {
+    "NAVIGATION": {
+      "productMenu": "product",
+      "offerMenu": "offer",
+      "orderMenu": "order",
+      "invoiceMenu": "invoice"
+    },
+    "HEADER": {
+      "logoutConfirmation": {
+        "dialogTitle": "Connectez - Out",
+        "dialogMessage": "Voulez-vous quitter l'application?",
+        "primaryButton": "Oui",
+        "secondaryButton": "Non"
+      },
+      "userMenu": {
+        "profileMenu": "Profile",
+        "helpMenu": "Help",
+        "logoutMenu": "Connectez - Out",
+        "userMessage": "salut"
+      }
+    },
+    "FOOTER": {
+      "proweredBy": "Powered By:",
+      "copyRight": "© Xpanxion",
+      "customerSupport": "Customer Support at",
+      "supportEmail": "test"
+    }
+  },
+  "MESSAGES": {
+    "Dialog": {
+      "AuthFailedInvalidAuthResponse": {
+        "title": "Authentication Failed",
+        "message": "Echec de l'authentification pour l'utilisateur spécifié. Veuillez entrer des informations d'identification valides et réessayer. Si vous rencontrez toujours le même problème, contactez l'équipe de support technique.",
+        "primaryButton": "D'accord",
+        "secondaryButton": "",
+        "isShowSecondaryButton": "false",
+        "isLogoutOnPrimaryButton": "false"
+      }
+    },
+    "Toastr": {
+      "Fatal": {
+        "message": "Une erreur s'est produite lors du traitement de votre demande. Réessayez ultérieurement ou contactez l'équipe du support client.",
+        "messageType": "Error"
+      },
+      "EmptyEmailAddress": "Veuillez entrer l'adresse e-mail.",
+      "EmptyPassword": "Veuillez entrer le mot de passe.",
+      "InvalidUserNameAndPassword": "Invalid Username or Password_fr.",
+      "PleaseConfigureCatalg": "Please configure a catalog to go next_fr."
+    }
+  },
+  "GRID": {
+    "DashboardGrid": {
+      "ColumnHeaders": {
+        "reqNo": "REQ NO. FR",
+        "reqName": "REQ NAME FR",
+        "reqBy": "REQ BY FR",
+        "approver": "APPROVER FR",
+        "project": "PROJECT FR",
+        "application": "APPLICATION FR",
+        "environment": "ENVIRONMENT FR",
+        "istm": "ITSM NO. FR",
+        "status": "STATUS FR",
+        "comment": "COMMENT FR",
+        "action": "ACTION FR"
+      }
+    },
+    "AllRequestGrid": {
+      "ColumnHeaders": {
+        "reqNo": "REQ NO. FR",
+        "reqName": "REQ NAME FR",
+        "status": "STATUS FR",
+        "comment": "COMMENT FR",
+        "action": "ACTION FR"
+      }
+    }
+  },
+  "DASHBOARD": {
+    "Headers": {
+      "requests": "Requests FR",
+      "projectResources": "Project Resources FR",
+      "myCatalogs": "My Catalogs FR",
+      "trendingOrganization": "Trending In Organization FR",
+      "viewAll": "View All FR",
+      "search": "Search FR",
+      "manageSearch":"Search by Request id, Request name, Requestor name, Project name, ITSM number",
+      "searchByProject": "Search By Project FR",
+      "noCardsToDisplay": "No Projects cards to display FR"
+    }
+  },
+  "PROVISIONING": {
+    "Requests": {
+      "info": "Info FR",
+      "catalogs": "Catalogs FR",
+      "confirm": "Confirm FR",
+      "chooseCatalog": "Choose the catalog and fill the required details FR",
+      "name": "Name FR",
+      "departments": "Departments FR",
+      "projects": "Projects FR",
+      "applications": "Applications FR",
+      "environments": "Environments FR",
+      "provisionOnceApproved": "Provision Once Approved FR",
+      "comments": "Comments FR",
+      "catalogDetails": "Catalog Details FR",
+      "cancel": "Cancel FR",
+      "nextCatalogs": "Next:Catalogs FR",
+      "previous": "Previous FR",
+      "nextConfirm": "Next:Confirm FR",
+      "submit": "Submit FR",
+      "Add": "Add FR",
+      "Remove": "Remove FR",
+      "Select a configuration for App Server": "Select a configuration for App Server FR",
+      "Enter App Server Disk Size(GB)": "Enter App Server Disk Size(GB) FR",
+      "Select a configuration for DB Server": "Select a configuration for DB Server FR",
+      "Enter DB Server Disk Size(GB)": "Enter DB Server Disk Size(GB) FR",
+      "AppServer": "AppServer FR",
+      "AppOS": "AppOS FR",
+      "DBServer": "DBServer FR",
+      "DBOS": "DBOS FR",
+      "Select a configuration for Server": "Select a configuration for Server FR",
+      "version":"version FR",
+      "AppOS Version":"AppOS Version FR",
+      "App OS Version":"App OS Version FR",
+      "App Server": "App Server FR",
+      "OS": "OS FR"
+    }
+  },
+  "LOGIN": {
+    "uploadPicture": "Upload Picture FR",
+    "accountSettings": "Account Settings FR",
+    "logout": "Logout FR"
+  }
+}
