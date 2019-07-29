@@ -1,0 +1,31 @@
+@import '../scss/main';
+.app-container {
+  align-items: stretch;
+  .page-content-wrapper {
+    width: 100%;
+    margin-left: 47px; // responsive design
+    position: relative;
+    @include phone {
+      margin-left: 0px;
+    }
+    .athena-main-container{
+      margin-left: 1rem;
+      .frame-height {
+        height: 90vh;
+        //margin-top: 1rem;
+      }
+      .align-margin {
+        margin: 1rem 0.5rem 0rem 1.5rem;
+      }
+      .breadcrumb-container{
+        flex: 0 0.5 0%;
+      }
+  }
+  
+}
+}
+.row {
+  flex-wrap: inherit;
+}
+
+

@@ -1,0 +1,138 @@
+<div class="container-fluid padd0">
+    <div class="row justify-content-around">
+        <div class="col-md-8 col-xs-12 col-sm-12 col-lg-8">
+            <section class="grid-wrapper">
+                <div *ngIf="visible">
+                    <div class="filter-header row">
+                        <div class="col-md-3 col-sm-3 col-xs-3 col-lg-3 padd0">
+                            <h5>{{'DASHBOARD.Headers.requests' | translate }}</h5>
+                        </div>
+                        <div class="col-md-9 col-sm-9 col-xs-9 col-lg-9 padd0">
+                            <div class="filter-box">
+                                <form class="example-form">
+                                    <span>
+                                        <mat-icon (click)="updateVisibility()">refresh</mat-icon>
+                                    </span>
+                                    <mat-form-field class="example-full-width">
+                                        <input
+                                            type="search"
+                                            size="35"
+                                            class="search-input"
+                                            matInput
+                                            placeholder="{{'DASHBOARD.Headers.search' | translate }}"
+                                            (input)="dt.filterGlobal($event.target.value, 'contains')"
+                                            [(ngModel)]="globalFilterValue"
+                                            [ngModelOptions]="{standalone: true}"
+                                        >
+                                        <mat-icon>search</mat-icon>
+                                    </mat-form-field>
+                                    <a
+                                        [routerLink]="['/allRequests']"
+                                        routerLinkActive="active"
+                                    >{{'DASHBOARD.Headers.viewAll' | translate }}</a>
+                                    <span>
+                                        <a
+                                            [routerLink]="['/provisioning']"
+                                            class="move-left"
+                                        ><i
+                                                pTooltip="Create Request"
+                                                tooltipPosition="top"
+                                                class="fa fa-plus-circle fa-lg plus-color"
+                                                aria-hidden="true"
+                                            ></i></a></span>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <p-table
+                        #dt
+                        [value]="gridData"
+                        [globalFilterFields]="['statusTO.name', 'id', 'name', 'itsmRequestTO.approverComments']"
+                        [responsive]="true"
+                        [loading]="loading"
+                        [scrollable]="true"
+                        scrollHeight="30vh"
+                        class="dataTable"
+                    >
+                        <ng-template
+                            pTemplate="header"
+                            let-row
+                        >
+                            <tr>
+                                <th [pSortableColumn]="'id'">{{'GRID.DashboardGrid.ColumnHeaders.reqNo' | translate }}
+                                    <p-sortIcon [field]="'id'"></p-sortIcon>
+                                </th>
+                                <th [pSortableColumn]="'name'">
+                                    {{'GRID.DashboardGrid.ColumnHeaders.reqName' | translate }}
+                                    <p-sortIcon [field]="'name'"></p-sortIcon>
+                                </th>
+                                <th [pSortableColumn]="'statusTO.name'">
+                                    {{'GRID.DashboardGrid.ColumnHeaders.status' | translate }}
+                                    <p-sortIcon [field]="'statusTO.name'"></p-sortIcon>
+                                </th>
+                                <th>{{'GRID.DashboardGrid.ColumnHeaders.comment' | translate }}</th>
+                                <th>{{'GRID.DashboardGrid.ColumnHeaders.action' | translate }}</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template
+                            pTemplate="body"
+                            let-row
+                        >
+                            <tr>
+                                <td>
+                                    <span
+                                        class="ui-column-title">{{'GRID.DashboardGrid.ColumnHeaders.reqNo' | translate }}</span>
+                                    {{ row.id }}
+                                </td>
+                                <td>
+                                    <span
+                                        class="ui-column-title">{{'GRID.DashboardGrid.ColumnHeaders.reqName' | translate }}</span>
+                                    {{ row.name }}
+                                </td>
+                                <td
+                                    [ngClass]="{'amber':row.statusTO.id == 1 || row.statusTO.id == 4 || row.statusTO.id == 5, 
+                            'green': row.statusTO.id == 2 || row.statusTO.id == 7, 'red':row.statusTO.id == 3 || row.statusTO.id == 6 || row.statusTO.id == 8}">
+                                    <span
+                                        class="ui-column-title">{{'GRID.DashboardGrid.ColumnHeaders.status' | translate }}</span>
+                                    {{ row.statusTO.name}}
+                                </td>
+                                <td>
+                                    <span
+                                        class="ui-column-title">{{'GRID.DashboardGrid.ColumnHeaders.comment' | translate }}</span>
+                                    {{ row.itsmRequestTO.approverComments}}
+                                </td>
+                                <td>
+                                    <span
+                                        class="ui-column-title">{{'GRID.DashboardGrid.ColumnHeaders.action' | translate }}</span>
+                                    <button
+                                        *ngIf="row.statusTO.id == 2 || row.statusTO.id == 8"
+                                        type="button"
+                                        mat-raised-button
+                                        class="btn-provision"
+                                        (click)="navigate(row.id)"
+                                        pButton
+                                    >Provision</button>
+                                    <button
+                                        *ngIf="row.statusTO.id == 3 || row.statusTO.id == 6"
+                                        type="button"
+                                        mat-raised-button
+                                        class="btn-redo"
+                                        pButton
+                                    >Redo</button>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </section>
+            <section class="grid-wrapper-graph">
+                <dashboard-graph></dashboard-graph>
+            </section>
+        </div>
+        <div class="col-md-4 col-xs-12 col-sm-12 col-lg-4">
+            <section class="grid-wrapper grid-wrapper-card">
+                <dashboard-card></dashboard-card>
+            </section>
+        </div>
+    </div>
+</div>

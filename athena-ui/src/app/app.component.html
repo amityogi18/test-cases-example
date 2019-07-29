@@ -1,0 +1,44 @@
+<app-loading-screen></app-loading-screen>
+<error-dialog></error-dialog>
+<p-toast [style]="{marginTop: '10px'}" position="top-center"></p-toast>
+
+<!-- <div class="app-container" *ngIf="isUserLoggedIn">
+    
+    <div class="section">
+        <div>
+            <app-sidebar *ngIf="fortunaID !== 3" [showSideBar]="showSideBar" (menuSelected)="menuSelected($event)"
+            [currentUrl]="currentUrl"></app-sidebar>
+        </div>
+        <div class="athena-main-container row vertical no-vertical-padding">
+            <header (toggleSidebar)="toggleSidebar()" (changeHeader)="toggleHeader($event)"></header>
+            <div class="row vertical breadcrumb-container" *ngIf="fortunaID !== 3">
+                <app-bread-crum [menuItems]="breadCrubms"></app-bread-crum>
+            </div>
+            <div class="row flex1">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<div class="d-flex app-container" *ngIf="isUserLoggedIn">
+    <app-sidebar *ngIf="fortunaID !== 3" [showSideBar]="showSideBar" (menuSelected)="menuSelected($event)"
+        [currentUrl]="currentUrl">
+    </app-sidebar>
+
+    <div class="page-content-wrapper" [ngStyle]="{'margin-left': fortunaID == 3 ? ' 0px' : ' '}">
+        <header (toggleSidebar)="toggleSidebar()" (changeHeader)="toggleHeader($event)"></header>
+        <div class="athena-main-container">
+            <div *ngIf="fortunaID !== 3" class="align-margin">
+                <app-bread-crum [menuItems]="breadCrubms"></app-bread-crum>
+            </div>
+            <div class="row flex1 frame-height">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="d-flex" id="login-pg" *ngIf="!isUserLoggedIn">
+    <router-outlet></router-outlet>
+</div>

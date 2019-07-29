@@ -1,0 +1,16 @@
+:host {
+  .graph-title {
+      font-family: "Roboto";
+      float: left;
+      margin-bottom: 1.5rem;
+
+  }
+  .row {
+    display: flex;
+  }
+  .row > div:first-child {
+    flex: 1;
+    border-right: 1px solid grey;
+  }
+}
+

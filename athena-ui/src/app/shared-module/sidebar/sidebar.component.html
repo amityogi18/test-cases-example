@@ -1,0 +1,59 @@
+<div class="wrapper">
+  <span>
+    <i
+      class="slide-indicator fas fa-caret-left"
+      (click)="toggleSidebar($event)"
+      [ngClass]="isSidebarCollapsed ? 'fa-caret-right' : 'fa-caret-left'"
+      id="slideIndicator"
+    ></i>
+  </span>
+  <!-- Sidebar  -->
+  <nav
+    id="sidebar"
+    class="nav-container"
+    (click)="toggleSidebar($event)"
+    [ngClass]="showSideBar ? '' : 'hide'"
+  >
+    <ul class="list-unstyled components">
+      <li>
+        <a>
+          <img
+            src="assets/Images/menu-lines.svg"
+            class="menu-bar"
+            alt="menu-icon"
+          >
+          <img
+            src="assets/Images/athena_white.svg"
+            class="athena-logo"
+            alt="logo_white"
+          >
+        </a>
+
+      </li>
+      <li *ngFor="let menuItem of menus, let i = index" [ngClass]=" i == 0 ? 'active': '' "
+        (click)="onMenuSelect(menuItem)">
+        <a aria-expanded="false" routerLink="{{menuItem.routerLink}}" routerLinkActive="active" #rla="routerLinkActive"
+          [routerLinkActiveOptions]="{exact: true}" (mouseover)="fireEvent(i)" (mouseout)="fireEvent(-1)"
+          [pTooltip]="isSidebarCollapsed ? menuItem.label: ''" tooltipPosition="right">
+          <img [src]="( (i == hoverIndex) || (rla.isActive) ) ? menuItem.hoverImgUrl : menuItem.imgURL" >
+          <label>{{menuItem.label | translate}}</label>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="sub-menu">
+    <ul class="list-unstyled ">
+      <li
+        *ngFor="let item of submenus"
+        (click)="onMenuSelect(item)"
+      >
+        <a routerLink={{item.routingLink}}>
+          <label>{{item.label | translate}}</label>
+        </a>
+      </li>
+    </ul>
+
+  </div>
+
+</div>

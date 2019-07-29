@@ -1,0 +1,84 @@
+@import '../../../scss/main';
+:host {
+    @extend .padd0;
+    section {
+        @extend .grid-wrapper;
+    } 
+    .example-full-width .search-input {
+        width: 94%;
+    }
+    .mat-form-field.allStatusesSelect {
+       // float: right;
+       margin-right: 2em;
+        width: 220px;
+    }
+    .plus-color{
+        color: #205988;
+    }
+}
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-suffix .mat-icon {
+    width: auto;
+}
+
+::ng-deep  body .ui-table .ui-table-thead > tr > th {
+    padding: 0.871em 0.857em;
+    font-weight: 500;
+    color: $white;
+    background-color: $colorDarkBlue;
+    border: none;
+}
+::ng-deep body .ui-table .ui-table-tbody > tr > td {
+    border: none;
+}
+
+::ng-deep body .ui-table .ui-table-tbody > tr:nth-child(even) {
+    background-color: #F5F5F5;
+}
+
+::ng-deep body .ui-paginator {
+    background-color: transparent;
+    padding: 0;
+    border: none;
+    margin-top: 30px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+::ng-deep body .ui-paginator .ui-paginator-pages .ui-paginator-page.ui-state-active {
+    background-color: $colorBlue;
+    color: $white;
+}
+
+::ng-deep body .ui-table .ui-table-tbody > tr > td {
+    border: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 8px;
+}
+
+::ng-deep body .ui-table .ui-table-tbody > tr > td:nth-child(1) { 
+    color: $colorBlue;
+}
+::ng-deep body .ui-table .ui-table-tbody > tr > td:nth-child(8) { 
+    color: $colorBlue;
+    text-decoration: underline;
+}
+
+
+::ng-deep .ui-widget-header .ui-state-default {
+     background-color: transparent; 
+     font-weight: normal; 
+}
+
+::ng-deep body .ui-paginator .ui-paginator-pages .ui-paginator-page,
+::ng-deep body .ui-paginator .ui-paginator-next,
+::ng-deep body .ui-paginator .ui-paginator-prev,
+::ng-deep body .ui-paginator .ui-paginator-first,
+::ng-deep body .ui-paginator .ui-paginator-last  {
+    background-color: transparent; 
+    font-weight: normal; 
+}
+
+
+

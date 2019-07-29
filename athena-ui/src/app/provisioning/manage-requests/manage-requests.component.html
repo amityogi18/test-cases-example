@@ -1,0 +1,159 @@
+<div class="container-fluid padd0 common-container">
+  <div class="row">
+    <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12">
+      <section class="grid-wrapper">
+        <div class="filter-header row">
+          <div class="col-md-9 col-sm-9 col-xs-9 col-lg-9 padd0">
+            <div class="filter-box">
+              <form class="example-form">
+                <mat-form-field class="example-full-width">
+                  <input
+                  (blur)="onBlur()" (focus)="onFocus()"
+                    type="text"
+                    class="search-input"
+                    matInput
+                    size="73"
+                    [(ngModel)]="globalFilterValue"
+                    [ngModelOptions]="{standalone: true}"
+                    placeholder="{{'DASHBOARD.Headers.manageSearch' | translate }}"
+                    (input)="dt.filterGlobal($event.target.value, 'contains')"
+                  >
+                  <mat-icon>search</mat-icon>
+                </mat-form-field>
+              </form>
+            </div>
+          </div>
+          <div class="col-md-3 col-sm-3 col-xs-3 col-lg-3">
+            <mat-form-field class="allStatusesSelect">
+              <mat-label>All Statuses</mat-label>
+              <mat-select [(value)]='selectedStatusId'>
+                <mat-option (click)="dt.filterGlobal($event.target.value)">All Statuses</mat-option>
+                <mat-option
+                  *ngFor="let status of allStatuses"
+                  [value]="status.id"
+                  (click)="dt.filterGlobal($event.target.value);statusChange()"
+                >
+                  {{status.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <span>
+              <a
+                [routerLink]="['/provisioning']"
+                class="move-left"
+              ><i
+                  pTooltip="Create Request"
+                  tooltipPosition="top"
+                  class="fa fa-plus-circle fa-lg plus-color"
+                  aria-hidden="true"
+                ></i></a></span>
+          </div>
+
+        </div>
+        <p-table
+          [value]="gridData"
+          #dt
+          [lazy]="true"
+          (onLazyLoad)="loadDataLazy($event)"
+          [paginator]="true"
+          [rows]="10"
+          [totalRecords]="totalRecords"
+          [responsive]="true"
+          [loading]="loading"
+        >
+          <ng-template
+            pTemplate="header"
+            let-row
+          >
+            <tr>
+              <th>{{'GRID.DashboardGrid.ColumnHeaders.reqNo' | translate }}</th>
+              <th>{{'GRID.DashboardGrid.ColumnHeaders.reqName' | translate }}</th>
+              <th>{{'GRID.DashboardGrid.ColumnHeaders.reqBy' | translate }}</th>
+              <th>{{'GRID.DashboardGrid.ColumnHeaders.approver' | translate }}</th>
+              <th>{{'GRID.DashboardGrid.ColumnHeaders.project' | translate }}</th>
+              <th>{{'GRID.DashboardGrid.ColumnHeaders.application' | translate }}</th>
+              <th>{{'GRID.DashboardGrid.ColumnHeaders.environment' | translate }}</th>
+              <th>{{'GRID.DashboardGrid.ColumnHeaders.istm' | translate }}</th>
+              <th>{{'GRID.DashboardGrid.ColumnHeaders.status' | translate }}</th>
+              <th>{{'GRID.DashboardGrid.ColumnHeaders.comment' | translate }}</th>
+              <th>{{'GRID.DashboardGrid.ColumnHeaders.action' | translate }}</th>
+            </tr>
+          </ng-template>
+          <ng-template
+            pTemplate="body"
+            let-row
+          >
+            <tr>
+              <td>
+                <span class="ui-column-title">{{'GRID.DashboardGrid.ColumnHeaders.reqNo' | translate }}</span>
+                {{ row.requestId }}
+              </td>
+              <td>
+                <span class="ui-column-title">{{'GRID.DashboardGrid.ColumnHeaders.reqName' | translate }}</span>
+                {{ row.requestName }}
+              </td>
+              <td>
+                <span class="ui-column-title">{{'GRID.DashboardGrid.ColumnHeaders.reqBy' | translate }}</span>
+                {{ row.requestBy}}
+              </td>
+              <td>
+                <span class="ui-column-title">{{'GRID.DashboardGrid.ColumnHeaders.approver' | translate }}</span>
+                {{ row.approver }}
+              </td>
+              <td>
+                <span class="ui-column-title">{{'GRID.DashboardGrid.ColumnHeaders.project' | translate }}</span>
+                {{ row.projectName }}
+              </td>
+              <td>
+                <span class="ui-column-title">{{'GRID.DashboardGrid.ColumnHeaders.application' | translate }}</span>
+                {{ row.applicationName }}
+              </td>
+              <td>
+                <span class="ui-column-title">{{'GRID.DashboardGrid.ColumnHeaders.environment' | translate }}</span>
+                {{ row.environment }}
+              </td>
+              <td>
+                <span class="ui-column-title">{{'GRID.DashboardGrid.ColumnHeaders.istm' | translate }}</span><a
+                  href={{row.itsmRequestURL}}
+                  target="_blank"
+                > {{ row.itsmId }}</a>
+
+              </td>
+              <td
+                [ngClass]="{'amber':row.requestStatusId == 1 || row.requestStatusId == 4 || row.requestStatusId == 5, 
+                                'green': row.requestStatusId == 2 || row.requestStatusId == 7, 'red':row.requestStatusId == 3 || row.requestStatusId == 6 || row.requestStatusId == 8}"
+              >
+                <span class="ui-column-title">{{'GRID.DashboardGrid.ColumnHeaders.status' | translate }}</span>
+                {{ row.requestStatus }}
+              </td>
+              <td
+                pTooltip="{{ row.approverComments }}"
+                tooltipPosition="top"
+              >
+                <span class="ui-column-title">{{'GRID.DashboardGrid.ColumnHeaders.comment' | translate }}</span>
+                {{ row.approverComments }}
+              </td>
+              <td>
+                <span class="ui-column-title">{{'GRID.DashboardGrid.ColumnHeaders.action' | translate }}</span>
+                <button
+                  *ngIf="row.requestStatusId == 2 || row.requestStatusId == 8"
+                  type="button"
+                  mat-raised-button
+                  class="btn-provision"
+                  pButton
+                >Provision</button>
+                <button
+                  *ngIf="row.requestStatusId == 3 || row.requestStatusId == 6"
+                  type="button"
+                  mat-raised-button
+                  class="btn-redo"
+                  pButton
+                >Redo</button>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </section>
+    </div>
+  </div>
+</div>

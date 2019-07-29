@@ -1,0 +1,486 @@
+<div class='content-card'>
+	<mat-horizontal-stepper
+		linear
+		#stepper
+	>
+		<!-- first Stepper  -->
+		<mat-step
+			[completed]="false"
+			[editable]="false"
+			#stepperFirst
+		>
+			<form
+				[formGroup]="stepperOneForm"
+				role='stepperOneForm'
+			>
+				<ng-template matStepLabel>{{'PROVISIONING.Requests.info' | translate }}</ng-template>
+				<label for="">{{'PROVISIONING.Requests.chooseCatalog' | translate }}</label>
+				<div class="row">
+					<div class="col-md-6">
+						<mat-form-field>
+							<input
+								matInput
+								formControlName="name"
+								placeholder="{{'PROVISIONING.Requests.name' | translate }}"
+								id='name'
+								name='name'
+								required
+							>
+						</mat-form-field>
+					</div>
+					<div class="col-md-6">
+						<mat-form-field>
+							<mat-label>{{'PROVISIONING.Requests.departments' | translate }}</mat-label>
+							<mat-select
+								formControlName="department"
+								required
+								(selectionChange)="selectDepartment($event.value)"
+							>
+								<mat-option
+									*ngFor="let department of departmentData"
+									[value]="department"
+								>
+									{{ department.name }}</mat-option>
+							</mat-select>
+						</mat-form-field>
+					</div>
+
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<mat-form-field>
+							<mat-label>{{'PROVISIONING.Requests.projects' | translate }}</mat-label>
+							<mat-select
+								formControlName="project"
+								required
+								(selectionChange)="selectProject($event.value)"
+							>
+								<mat-option
+									*ngFor="let project of projectData"
+									[value]="project"
+								>
+									{{ project.name }}</mat-option>
+							</mat-select>
+						</mat-form-field>
+					</div>
+					<div class="col-md-6">
+						<mat-form-field>
+							<mat-label>{{'PROVISIONING.Requests.applications' | translate }}</mat-label>
+							<mat-select
+								formControlName="application"
+								required
+							>
+								<mat-option
+									*ngFor="let application of applicationData"
+									[value]="application"
+								>
+									{{ application.name }}</mat-option>
+							</mat-select>
+						</mat-form-field>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<mat-form-field>
+							<mat-label>{{'PROVISIONING.Requests.environments' | translate }}</mat-label>
+							<mat-select
+								formControlName="environment"
+								required
+							>
+								<mat-option
+									*ngFor="let environment of environmentData"
+									[value]="environment"
+								>
+									{{ environment.name }}</mat-option>
+							</mat-select>
+						</mat-form-field>
+					</div>
+					<div
+						class="col-md-6"
+						style="padding-top: 0em;"
+					>
+						<mat-checkbox
+							formControlName="autoProvision"
+							color="primary"
+						>
+							{{'PROVISIONING.Requests.provisionOnceApproved' | translate }}
+						</mat-checkbox>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-6">
+						<mat-form-field>
+							<mat-label>{{'PROVISIONING.Requests.comments' | translate }}</mat-label>
+							<textarea
+								formControlName="remark"
+								matInput
+							>
+								</textarea>
+						</mat-form-field>
+
+					</div>
+				</div>
+				<div class="confirm-footer-buttons">
+					<button
+						mat-raised-button
+						class="stepper-btn-grey"
+						matStepperPrevious
+						(click)="resetSubmit(stepper)"
+					>{{'PROVISIONING.Requests.cancel' | translate }}</button>
+					<button
+						mat-raised-button
+						class="stepper-btn-next"
+						(click)="firstStepperData(stepper)"
+						matStepperNext
+					>{{'PROVISIONING.Requests.nextCatalogs' | translate }}</button>
+
+				</div>
+			</form>
+		</mat-step>
+
+		<!-- Second Stepper  -->
+		<mat-step
+			[completed]="false"
+			[editable]="false"
+			#stepperSecond
+		>
+			<ng-template matStepLabel>{{'PROVISIONING.Requests.catalogs' | translate }}</ng-template>
+			<form *ngIf="catalogData !== undefined">
+				<div [formGroup]="catalogForm">
+
+					<label class="catalog-label">{{'PROVISIONING.Requests.chooseCatalog' | translate }}</label>
+					<div
+						class="catalog-div"
+						id="style-3"
+						#matAccordians
+					>
+						<div
+							*ngFor="let catalog of catalogData.data.catalogs; let i = index "
+							formArrayName="fields"
+						>
+							<mat-accordion class="">
+								<mat-expansion-panel
+									[disabled]="isDisabled"
+									[attr.id]="'expansion-panel' + i"
+									(opened)="openGroup($event, i, catalog.id)"
+									(closed)="closeGroup($event, i)"
+								>
+									<mat-expansion-panel-header
+										[collapsedHeight]="customCollapsedHeight"
+										[expandedHeight]="customExpandedHeight"
+									>
+										<div>
+											<div class="row provisioningTable">
+												<div class="col-md-4 img-container">
+													<img
+														src={{catalog.imageURL}}
+														class="img-responsive provisioningImage"
+													>
+												</div>
+												<div class="col-md-8 padd-left">
+													<div class="header">
+														<span><b>{{catalog.displayName}}</b></span>
+													</div>
+													<div
+														class="description"
+														[attr.id]="'descriptionDiv' + i"
+													>
+														<span>{{catalog.description}}</span>
+													</div>
+													<div>
+														<div
+															class="table-footer"
+															[attr.id]="'footerDiv' + i"
+														>
+															<span>published by {{catalog.publishBy}} | used
+																{{requestCount[catalog.id]}}
+																times</span>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div
+											[attr.id]="'toggleIcons' + i"
+											class="hide-toggle-buttons"
+										>
+											<div
+												class="catalog-selection-image-added"
+												[attr.id]="'selectedIcon' + i"
+												*ngIf="'openedPanelStatus.isExpanded'+ i"
+											>
+												<div *ngIf="'openedPanelStatus.selectedIcon'+ i; then addedIconTemplate">
+												</div>
+											</div>
+											<div
+												class="catalog-selection-image"
+												[attr.id]="'closeIcon' + i"
+												*ngIf="'openedPanelStatus.isExpanded'+ i"
+											>
+												<div *ngIf="'openedPanelStatus.closeIcon'+ i; then closeIconTemplate">
+												</div>
+											</div>
+										</div>
+
+
+										<ng-template #closeIconTemplate>
+											<i class="fas fa-times"></i>
+										</ng-template>
+										<ng-template #addedIconTemplate>
+											<i class="fas fa-check"></i>
+										</ng-template>
+
+									</mat-expansion-panel-header>
+
+									<div
+										class="row"
+										*ngIf="fieldType[i]"
+									>
+
+										<div
+											class="col-md-6"
+											*ngFor="let fieldArray of catalogForm.get('fields').controls[i].controls; let j= index; "
+											[formArrayName]="i"
+										>
+
+											<div
+												class="field-container"
+												*ngIf="fieldType[i][j].type ==='DropDown'"
+											>
+												<mat-form-field>
+													<mat-label>
+														{{'PROVISIONING.Requests.'+fieldType[i][j].description | translate }}
+													</mat-label>
+													<mat-select [formControl]="fieldArray">
+														<mat-option
+															*ngFor="let picklist of fieldType[i][j].catalogParamListTOs"
+															[value]="picklist.key"
+														>
+															{{ picklist.value }}</mat-option>
+													</mat-select>
+												</mat-form-field>
+											</div>
+
+											<div
+												class="field-container"
+												*ngIf="fieldType[i][j].type==='Text'"
+											>
+												<mat-form-field>
+													<input
+														[formControl]="fieldArray"
+														name="{{fieldType[i][j].paramName}}"
+														[attr.id]="'inputField' + i"
+														matInput
+														type="text"
+														placeholder={{fieldType[i][j].description}}
+													>
+													<mat-error *ngIf="fieldArray.invalid"> Value should not be empty &
+														less than
+														{{fieldType[i][j].maxLength}} characters</mat-error>
+												</mat-form-field>
+											</div>
+
+											<div
+												class="field-container"
+												*ngIf="fieldType[i][j].type==='Number'"
+											>
+												<div>
+													<mat-form-field>
+														<input
+															[formControl]="fieldArray"
+															matInput
+															#catalogNumberType
+															type="number"
+															[attr.id]="'numberField' + i"
+															placeholder="{{fieldType[i][j].description}}"
+															name="{{fieldType[i][j].paramName}}"
+														>
+														<mat-error *ngIf="fieldArray.invalid"> Value is required &
+															should be in between
+															{{fieldType[i][j].minValue}} & {{fieldType[i][j].maxValue}}
+														</mat-error>
+													</mat-form-field>
+												</div>
+											</div>
+
+											<input
+												type="hidden"
+												value=" "
+												*ngIf="fieldType[i][j].type!=='Hidden'"
+												[formControl]="fieldArray"
+											/>
+										</div>
+									</div>
+									<button
+										class="stepper-button"
+										style="float:right"
+										[attr.id]="'catalogAddButton' + i"
+										(click)="toggleAddButton($event, i)"
+									>
+										{{'PROVISIONING.Requests.'+htmlStr | translate }}</button>
+								</mat-expansion-panel>
+							</mat-accordion>
+						</div>
+
+					</div>
+
+					<div class="clearfix"></div>
+					<div
+						class="btn-toolbar justify-content-between"
+						role="toolbar"
+						aria-label="Toolbar with button groups"
+					>
+						<div
+							role="group"
+							aria-label="First group"
+						>
+							<button
+								mat-raised-button
+								class="stepper-btn-next"
+								matStepperPrevious
+								(click)="goToFirstStepper(stepper, 0)"
+							>{{'PROVISIONING.Requests.previous' | translate }}</button>
+						</div>
+						<div>
+							<button
+								mat-raised-button
+								class="stepper-btn-grey"
+								matStepperPrevious
+								(click)="resetSubmit(stepper)"
+							>{{'PROVISIONING.Requests.cancel' | translate }}</button>
+							<button
+								#catalogsubmit
+								class="stepper-btn-next"
+								matStepperNext
+								(click)="stepperThirdData(stepper)"
+							>{{'PROVISIONING.Requests.nextConfirm' | translate }}</button>
+						</div>
+					</div>
+				</div>
+
+			</form>
+		</mat-step>
+
+		<!-- Third Stepper  -->
+		<mat-step>
+			<ng-template matStepLabel>{{'PROVISIONING.Requests.confirm' | translate }}</ng-template>
+			<div
+				class="confirm-wrapper"
+				id="style-3"
+			>
+				<mat-card>
+					<mat-card-content class="row">
+						<div
+							class="col-md-12 confirm-container"
+							*ngIf="confirmPageResponse && confirmPageResponse.info"
+						>
+							<span><b>{{'PROVISIONING.Requests.info' | translate }}</b></span>
+							<div class="row">
+								<span class="col-sm-2">{{'PROVISIONING.Requests.name' | translate }}</span>:
+								<span
+									class="col-sm-7"
+									*ngIf="confirmPageResponse.info.name"
+								>{{confirmPageResponse.info.name}}</span>
+							</div>
+							<div class="row">
+								<span class="col-sm-2">{{'PROVISIONING.Requests.departments' | translate }}</span>:
+								<span
+									class="col-sm-7"
+									*ngIf="confirmPageResponse.info.department"
+								>{{confirmPageResponse.info.department}}</span>
+							</div>
+							<div class="row">
+								<span class="col-sm-2">{{'PROVISIONING.Requests.projects' | translate }}</span>:
+								<span
+									class="col-sm-7"
+									*ngIf="confirmPageResponse.info.project"
+								>{{confirmPageResponse.info.project}}</span>
+							</div>
+							<div class="row">
+								<span class="col-sm-2">{{'PROVISIONING.Requests.applications' | translate }}</span>:
+								<span
+									class="col-sm-7"
+									*ngIf="confirmPageResponse.info.application"
+								>{{confirmPageResponse.info.application}}</span>
+							</div>
+							<div class="row">
+								<span class="col-sm-2">{{'PROVISIONING.Requests.environments' | translate }}</span>:
+								<span
+									class="col-sm-7"
+									*ngIf="confirmPageResponse.info.environment"
+								>{{confirmPageResponse.info.environment}}</span>
+							</div>
+							<div class="row">
+								<span class="col-sm-2">{{'PROVISIONING.Requests.comments' | translate }}</span>:
+								<span
+									class="col-sm-7"
+									*ngIf="confirmPageResponse.info.remark"
+								>{{confirmPageResponse.info.remark}}</span>
+							</div>
+							<div class="row">
+								<span class="col-sm-2">{{'PROVISIONING.Requests.provisionOnceApproved' | translate }}</span>:
+								<span *ngIf="confirmPageResponse.info.autoProvision; then yes else no"></span>
+								<ng-template #yes><span class="col-sm-7">Yes</span></ng-template>
+								<ng-template #no><span class="col-sm-7">No</span></ng-template>
+							</div>
+						</div>
+					</mat-card-content>
+					<mat-card-content>
+						<span><b>{{'PROVISIONING.Requests.catalogDetails' | translate }}</b></span>
+						<div class="row">
+							<div class="col-md-2 padd0">
+								<img
+									[src]="catalogImage"
+									class="img-responsive provisioningImage"
+								>
+							</div>
+							<div class="col-md-10">
+								<div
+									class="row"
+									*ngFor="let obj of userParameterDetails | keyvalue"
+								>
+									<span class="col-md-3">{{obj.key}}</span>:
+									<span class="col-md-6">{{obj.value}}</span>
+								</div>
+							</div>
+						</div>
+					</mat-card-content>
+				</mat-card>
+			</div>
+			<div class="clearfix"></div>
+			<div
+				class="btn-toolbar justify-content-between"
+				role="toolbar"
+				aria-label="Toolbar with button groups"
+			>
+				<div
+					role="group"
+					aria-label="First group"
+				>
+					<button
+						mat-raised-button
+						class="stepper-btn-next"
+						matStepperPrevious
+						(click)="goToFirstStepper(stepper, 1)"
+					>{{'PROVISIONING.Requests.previous' | translate }}</button>
+				</div>
+				<div>
+					<button
+						mat-raised-button
+						class="stepper-btn-grey"
+						matStepperPrevious
+						(click)="resetSubmit(stepper)"
+					>{{'PROVISIONING.Requests.cancel' | translate }}</button>
+					<button
+						mat-raised-button
+						#finalSubmit
+						class="stepper-btn-next"
+						matStepperNext
+						(click)="summarySubmit()"
+					>{{'PROVISIONING.Requests.submit' | translate }}</button>
+				</div>
+			</div>
+		</mat-step>
+	</mat-horizontal-stepper>
+</div>

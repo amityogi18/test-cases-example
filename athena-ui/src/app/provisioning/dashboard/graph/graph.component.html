@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="row justify-content-md-center">
+    <div class="col-md-6 col-xs-12">
+      <mat-label class="graph-title"><h5>{{doughnutChartGraphTitle}}</h5></mat-label>
+      <canvas baseChart [options]="doughnutChartOptions" [data]="doughnutChartData" [labels]="doughnutChartLabels"
+        [chartType]="doughnutChartType" [colors]="doughnutColors" [plugins]="doughnutChartPlugins" (chartHover)="chartHovered($event)"
+        (chartClick)="chartClicked($event)">
+      </canvas>
+    </div>
+    <div class="col-md-6 col-xs-12">
+      <mat-label class="graph-title"><h5>{{barChartGraphTitle}}</h5></mat-label>
+      <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+        [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType">
+      </canvas>
+    </div>
+  </div>
+</div>

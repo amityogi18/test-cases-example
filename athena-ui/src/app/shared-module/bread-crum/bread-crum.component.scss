@@ -1,0 +1,18 @@
+@import '../../../scss/main';
+:host {
+ .breadcrumb{
+   margin-bottom: 0px;
+   padding: 0em;
+   background-color: transparent;
+   font-size: 0.9375rem;
+   font-family: 'Roboto';
+   .breadcrumb-item+.breadcrumb-item::before{
+     content: ">";
+     color: $colorDarkBlue;
+   }
+   .linkColor{
+     color: $colorBlue;
+   }
+ }
+ 
+}

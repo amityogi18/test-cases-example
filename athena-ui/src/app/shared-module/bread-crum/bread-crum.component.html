@@ -1,0 +1,16 @@
+<div
+  *ngIf="menuItems"
+  class="row vertical no-vertical-padding"
+>
+  <h3>{{menuItems[menuItems.length -1]}}</h3>
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+
+      <li
+        class="breadcrumb-item"
+        *ngFor="let link of menuItems, let i = index"
+        [ngClass]="i == menuItems.length ? 'active' : ''"
+      ><span class="linkColor">{{link}}</span></li>
+    </ol>
+  </nav>
+</div>

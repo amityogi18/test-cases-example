@@ -1,0 +1,122 @@
+﻿<!-- Page header Content -->
+<div class="header-wrapper">
+
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <!--<button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>-->
+    <a class="navbar-brand">
+      <img
+        (click)="gotoHomePage()"
+        src="assets/Images/logo_color.svg"
+        class="athena-logo clearfix"
+        alt="logo"
+      >
+    </a>
+
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      (click)="toggleNavbar()"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div
+      class="collapse navbar-collapse padd0 "
+      id="navbarSupportedContent"
+      [ngClass]="{ 'show': navbarOpen }"
+    >
+      <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+        <li class="nav-item active dropdown">
+          <mat-form-field
+            floatLabel="never"
+            class="cloud-dropdown"
+          >
+            <span><img
+                *ngIf="imageUrl"
+                [src]="imageUrl"
+              ></span>
+            <mat-select
+              disableRipple
+              [(ngModel)]='selectedVAlue'
+            >
+              <mat-option
+                *ngFor="let option of cloudOptions"
+                [value]="option.title"
+                (click)="toggleHeader(option)"
+              >
+                <img
+                  class="cloud-Icon"
+                  [src]="option.imgURL"
+                  alt="{{option.title}}"
+                >
+                <span class="option-text">
+                  {{option.title}}
+                </span>
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+        </li>
+        <li class="nav-item ">
+          <i class="material-icons custom-bell-icon">&#xE7F4;
+            <span
+              class="badge-icon custom-badge"
+              matBadge=""
+              matBadgeSize="small"
+            ></span>
+          </i>
+        </li>
+        <li class="nav-item">
+          <p
+            *ngIf="loggedInUserData && loggedInUserData.profileInitials"
+            #profile
+            class="data-letters"
+            (click)="show()"
+          >
+            {{loggedInUserData.profileInitials}}</p>
+
+          <div
+            *ngIf="showProfile"
+            class="login-profile"
+          >
+            <div class="card text-dark">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-4">
+                    <p
+                      class="custom-round"
+                      *ngIf="loggedInUserData && loggedInUserData.profileInitials"
+                    >
+                      {{loggedInUserData.profileInitials}}</p>
+                  </div>
+                  <div class="col-8">
+                    <h6 *ngIf="loggedInUserData.firstName && loggedInUserData.lastName">{{loggedInUserData.firstName}}
+                      {{loggedInUserData.lastName}}</h6>
+                    <p *ngIf="loggedInUserData.userName">{{loggedInUserData.userName}}</p>
+                    <a class="upload-btn">{{'LOGIN.uploadPicture' | translate }}</a>
+                    <button class="btn btn-dark">{{'LOGIN.accountSettings' | translate }}</button>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer text-center">
+                <button
+                  type="button"
+                  class="btn btn-light logout-btn"
+                  (click)="showLogoutConfirmation()"
+                >{{'LOGIN.logout' | translate }}</button>
+              </div>
+            </div>
+          </div>
+        </li>
+
+      </ul>
+    </div>
+  </nav>
+
+</div>
+<!-- /#page-header-wrapper -->

@@ -1,0 +1,56 @@
+@import '../../scss/main';
+
+
+:host {
+  width:100%;
+    .login-bg {
+      background-image: url("/assets/Images/Login_BG.svg");
+      background-size: cover;
+      height: 98vh;
+      @include phone {
+        display: none;
+      }
+    }
+    .btn-login {
+      @extend .action-btns;
+      color: $white;
+      background-color: $colorBlue;
+    }
+    .login-base-container {
+      flex-direction: row;
+      color: rgba(67, 66, 93, 1);
+      padding-top: 11em;
+      img {
+        width: 10em;
+      }
+      p {
+        opacity: 0.5;
+      }
+      @include phone {
+        width: 100vh;
+        height: 100vh
+      }
+    .login-form{
+      .mat-form-field{
+        width: 70%;
+        padding-top: 2em;
+      }
+      ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-infix {
+        padding: 0.6rem 0;
+      }
+      ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-label {
+        color: rgba(67, 66, 93, 1);
+      }
+      button[type=button]{
+        font-size: 1rem;
+        width: 100px;
+        height: 35px;
+        line-height: 1;
+      }
+    }
+  }
+  .form-control:focus{
+    box-shadow: none;
+  }
+}
+
